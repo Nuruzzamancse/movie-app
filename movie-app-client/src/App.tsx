@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from './store';
 import { loadUser, logout } from './store/authSlice';
-import MovieList from './components/MovieList';
-import MovieDetail from './components/MovieDetail';
-import Login from './components/Login';
-import Register from './components/Register';
+import MovieList from './features/movies/movie-list/MovieList';
+import MovieDetail from './features/movies/movie-detail/MovieDetail';
+import Login from './features/users/login/Login';
+import Register from './features/users/register/Register';
 import AdminView from './components/AdminView';
 
 const App: React.FC = () => {
