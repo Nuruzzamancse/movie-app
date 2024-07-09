@@ -12,12 +12,13 @@ A movie application built with React.js for the frontend and Node.js/Express for
 ## Folder Structure
 
 The repository has the following structure:
-
+```
 movie-app
-│
-├── movie-app-client # React.js application
-│
-└── movie-app-service # Node.js/Express application
+    │
+    ├── movie-app-client # React.js application
+    │
+    └── movie-app-service # Node.js/Express application
+```
 
 
 ## Clone the Repository
