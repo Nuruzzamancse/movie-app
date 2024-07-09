@@ -1,15 +1,14 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
   getMovies,
   getMovie,
   createMovie,
   updateMovie,
   deleteMovie
-} = require('../controllers/movieController');
+} from '../controllers/movieController';
+import { protect, authorize } from '../middleware/auth';
 
 const router = express.Router();
-
-const { protect, authorize } = require('../middleware/auth');
 
 router
   .route('/')
@@ -22,4 +21,4 @@ router
   .put(protect, authorize('admin'), updateMovie)
   .delete(protect, authorize('admin'), deleteMovie);
 
-module.exports = router;
+export default router;

@@ -1,6 +1,17 @@
-const mongoose = require('mongoose');
+import mongoose, { Document, Schema } from 'mongoose';
 
-const MovieSchema = new mongoose.Schema({
+// Interface to define the structure of a Movie document
+interface IMovie extends Document {
+  name: string;
+  description: string;
+  runningTime: number;
+  thumbnailUrl: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Define the schema
+const MovieSchema: Schema = new Schema({
   name: {
     type: String,
     required: [true, 'Please add a movie name'],
@@ -24,4 +35,5 @@ const MovieSchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Movie', MovieSchema);
+// Create and export the model
+export default mongoose.model<IMovie>('Movie', MovieSchema);

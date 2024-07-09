@@ -1,13 +1,12 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
   addFavorite,
   removeFavorite,
   getFavorites
-} = require('../controllers/favoriteController');
+} from '../controllers/favoriteController';
+import { protect } from '../middleware/auth';
 
 const router = express.Router();
-
-const { protect } = require('../middleware/auth');
 
 router.use(protect);  // All favorite routes are protected
 
@@ -18,4 +17,4 @@ router.route('/')
 router.route('/:id')
   .delete(removeFavorite);
 
-module.exports = router;
+export default router;
