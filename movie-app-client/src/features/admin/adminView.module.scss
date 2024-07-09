@@ -1,0 +1,105 @@
+.adminViewContainer {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding: 40px 20px;
+  width: calc(100vw - 57px);
+
+  .adminViewWrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    h2 {
+      text-align: center;
+      color: #333;
+      padding: 20px;
+      background-color: #4a90e2;
+      margin: 0;
+    }
+
+    .adminSection {
+      padding: 30px;
+      border-bottom: 1px solid #e0e0e0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      h3 {
+        color: #555;
+        margin-top: 0;
+      }
+
+      .inputField {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+      }
+
+      .addMovieButton {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        border: none;
+        background-color: #28a745;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: darken(#28a745, 10%);
+        }
+      }
+    }
+
+    .movieList {
+      padding: 30px;
+
+      .movieItem {
+        margin-bottom: 15px;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: box-shadow 0.3s;
+
+        &:hover {
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .movieName {
+          font-weight: bold;
+          font-size: 18px;
+        }
+
+        .removeMovieButton {
+          padding: 8px 15px;
+          border-radius: 6px;
+          border: none;
+          background-color: #dc3545;
+          color: #fff;
+          cursor: pointer;
+          font-size: 14px;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: darken(#dc3545, 10%);
+          }
+        }
+      }
+    }
+  }
+}

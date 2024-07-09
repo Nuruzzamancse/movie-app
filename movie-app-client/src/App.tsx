@@ -7,7 +7,7 @@ import MovieList from './features/movies/movie-list/MovieList';
 import MovieDetail from './features/movies/movie-detail/MovieDetail';
 import Login from './features/users/login/Login';
 import Register from './features/users/register/Register';
-import AdminView from './components/AdminView';
+import AdminView from './features/admin/AdminView';
 
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
