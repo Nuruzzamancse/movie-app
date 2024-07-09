@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState, AppDispatch } from '../store';
-import { addFavorite, removeFavorite, fetchComments, addComment } from '../store/movieSlice';
+import { addFavorite, removeFavorite, fetchComments, addComment, getMovie } from '../store/movieSlice';
 
 const MovieDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
-  const movie = useSelector((state: RootState) => state.movie.movies.find(m => m._id === id));
+  const movie = useSelector((state: RootState) => state.movie.movie);
   const favorite = useSelector((state: RootState) => state.movie.favorites.find(f => f.movie._id === id));
   const comments = useSelector((state: RootState) => state.movie.comments.filter(c => c.movie === id));
   const [newComment, setNewComment] = useState<string>('');
@@ -15,6 +15,7 @@ const MovieDetail: React.FC = () => {
   useEffect(() => {
     if (id) {
       dispatch(fetchComments(id));
+      dispatch(getMovie(id));
     }
   }, [dispatch, id]);
 

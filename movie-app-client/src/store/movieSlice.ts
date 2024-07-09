@@ -51,6 +51,18 @@ export const addFavorite = createAsyncThunk<Favorite, string, { rejectValue: str
   }
 );
 
+export const getMovie = createAsyncThunk<Movie, string, { rejectValue: string }>(
+  'movie/getMovie',
+  async (movieId, thunkAPI) => {
+    try {
+      const res = await api.get(`/movies/${movieId}`);
+      return res.data?.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to add favorite.");
+    }
+  }
+);
+
 export const removeFavorite = createAsyncThunk<string, string, { rejectValue: string }>(
   'movie/removeFavorite',
   async (movieId, thunkAPI) => {
@@ -113,6 +125,10 @@ export const movieSlice = createSlice({
       .addCase(fetchMovies.fulfilled, (state, action) => {
         state.loading = false;
         state.movies = action.payload;
+      })
+      .addCase(getMovie.fulfilled, (state, action) => {
+        state.loading = false;
+        state.movie = action.payload;
       })
       .addCase(fetchMovies.rejected, (state, action) => {
         state.loading = false;

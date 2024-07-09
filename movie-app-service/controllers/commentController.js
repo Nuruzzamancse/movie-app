@@ -1,6 +1,6 @@
-const Comment = require('../models/Comment');
-const Movie = require('../models/Movie');
-const asyncHandler = require('../utils/asyncHandler');
+const Comment = require("../models/Comment");
+const Movie = require("../models/Movie");
+const asyncHandler = require("../utils/asyncHandler");
 
 // @desc    Add comment to a movie
 // @route   POST /api/v1/movies/comments?movieId={movieId}
@@ -12,16 +12,21 @@ exports.addComment = asyncHandler(async (req, res, next) => {
   // Check if movie exists
   const movie = await Movie.findById(movieId);
   if (!movie) {
-    return res.status(404).json({ success: false, message: 'Movie not found' });
+    return res.status(404).json({ success: false, message: "Movie not found" });
   }
 
   const comment = await Comment.create({
     text,
     movie: movieId,
-    user: req.user.id
+    user: req.user.id,
   });
 
-  res.status(201).json({ success: true, data: comment });
+  const commentData = await Comment.findById(comment._id).populate({
+    path: "user",
+    select: "name",
+  });
+
+  res.status(201).json({ success: true, data: commentData });
 });
 
 // @desc    Get comments for a movie
@@ -31,11 +36,13 @@ exports.getMovieComments = asyncHandler(async (req, res, next) => {
   const { movieId } = req.query;
 
   const comments = await Comment.find({ movie: movieId }).populate({
-    path: 'user',
-    select: 'name'
+    path: "user",
+    select: "name",
   });
 
-  res.status(200).json({ success: true, count: comments.length, data: comments });
+  res
+    .status(200)
+    .json({ success: true, count: comments.length, data: comments });
 });
 
 // @desc    Update comment
@@ -45,17 +52,24 @@ exports.updateComment = asyncHandler(async (req, res, next) => {
   let comment = await Comment.findById(req.params.id);
 
   if (!comment) {
-    return res.status(404).json({ success: false, message: 'Comment not found' });
+    return res
+      .status(404)
+      .json({ success: false, message: "Comment not found" });
   }
 
   // Make sure user is comment owner
-  if (comment.user.toString() !== req.user.id && req.user.role !== 'admin') {
-    return res.status(401).json({ success: false, message: 'Not authorized to update this comment' });
+  if (comment.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return res
+      .status(401)
+      .json({
+        success: false,
+        message: "Not authorized to update this comment",
+      });
   }
 
   comment = await Comment.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
 
   res.status(200).json({ success: true, data: comment });
@@ -68,12 +82,19 @@ exports.deleteComment = asyncHandler(async (req, res, next) => {
   const comment = await Comment.findById(req.params.id);
 
   if (!comment) {
-    return res.status(404).json({ success: false, message: 'Comment not found' });
+    return res
+      .status(404)
+      .json({ success: false, message: "Comment not found" });
   }
 
   // Make sure user is comment owner or admin
-  if (comment.user.toString() !== req.user.id && req.user.role !== 'admin') {
-    return res.status(401).json({ success: false, message: 'Not authorized to delete this comment' });
+  if (comment.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return res
+      .status(401)
+      .json({
+        success: false,
+        message: "Not authorized to delete this comment",
+      });
   }
 
   await comment.remove();

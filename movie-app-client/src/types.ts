@@ -28,6 +28,7 @@ export interface MovieState {
   comments: Comment[];
   loading: boolean;
   error: string | null;
+  movie?: Movie
 }
 
 export interface AuthState {
