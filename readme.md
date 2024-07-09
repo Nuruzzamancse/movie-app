@@ -52,7 +52,7 @@ Running the Backend
 In the movie-app-service directory, start the server:
 
 ```bash
-npm start
+node index.js
 ```
 The backend server should now be running on the port specified in your .env file.
 
