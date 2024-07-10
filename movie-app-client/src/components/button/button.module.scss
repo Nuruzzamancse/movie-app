@@ -1,0 +1,43 @@
+.button {
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.fullWidth {
+  display: block;
+  width: 100%;
+}
+
+.default {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.default:hover {
+  background-color: #0056b3;
+}
+
+.add {
+  background-color: #28a745;
+  color: #fff;
+  padding: 12px;
+  font-size: 16px;
+}
+
+.add:hover {
+  background-color: #218838;
+}
+
+.remove {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.remove:hover {
+  background-color: #c82333;
+}

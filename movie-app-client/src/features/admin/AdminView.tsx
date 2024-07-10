@@ -5,6 +5,7 @@ import { fetchMovies } from "../../store/movieSlice";
 import api from "../../api/axiosConfig";
 
 import styles from "./adminView.module.scss";
+import Button from "../../components/button/button";
 
 const AdminView: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -83,21 +84,21 @@ const AdminView: React.FC = () => {
             }
             className={styles.inputField}
           />
-          <button onClick={handleAddMovie} className={styles.addMovieButton}>
+          <Button onClick={handleAddMovie} variant="add" fullWidth>
             Add Movie
-          </button>
+          </Button>
         </div>
         <div className={styles.movieList}>
           <h3>Movies</h3>
           {movies.map((movie) => (
             <div key={movie._id} className={styles.movieItem}>
               <span className={styles.movieName}>{movie.name}</span>
-              <button
+              <Button
                 onClick={() => handleRemoveMovie(movie._id)}
-                className={styles.removeMovieButton}
+                variant="remove"
               >
                 Remove
-              </button>
+              </Button>
             </div>
           ))}
         </div>
