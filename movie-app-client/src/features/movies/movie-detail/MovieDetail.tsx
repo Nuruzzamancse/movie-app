@@ -8,6 +8,7 @@ import {
   fetchComments,
   addComment,
   getMovie,
+  deleteComment,
 } from "../../../store/movieSlice";
 
 import styles from "./movieDetail.module.scss";
@@ -23,6 +24,10 @@ const MovieDetail: React.FC = () => {
   const comments = useSelector((state: RootState) =>
     state.movie.comments.filter((c) => c.movie === id)
   );
+  const { isAuthenticated, user } = useSelector(
+    (state: RootState) => state.auth
+  );
+
   const [newComment, setNewComment] = useState<string>("");
 
   useEffect(() => {
@@ -49,6 +54,11 @@ const MovieDetail: React.FC = () => {
     }
   };
 
+  const handlerDeleteComment = (id: string) => {
+    console.log({ id });
+    dispatch(deleteComment(id));
+  };
+
   return (
     <div className={styles.movieDetail}>
       <h2>{movie.name}</h2>
@@ -69,6 +79,12 @@ const MovieDetail: React.FC = () => {
           <div key={comment._id} className={styles.comment}>
             <span>{comment?.user?.name}</span>
             <p>{comment.text}</p>
+            {isAuthenticated &&
+            (user?._id === comment.user._id || user?.role === "admin") ? (
+              <Button style={{marginTop: 8}} variant="remove" onClick={() => handlerDeleteComment(comment._id)}>
+                Delete
+              </Button>
+            ) : null}
           </div>
         ))}
       </div>

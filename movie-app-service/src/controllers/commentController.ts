@@ -114,6 +114,6 @@ export const deleteComment = asyncHandler(
 
     await comment.deleteOne();
 
-    res.status(200).json({ success: true, data: {} });
+    res.status(200).json({ success: true, data: {id: comment.id} });
   }
 );

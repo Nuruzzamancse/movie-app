@@ -104,6 +104,18 @@ export const addComment = createAsyncThunk<Comment, AddCommentParams, { rejectVa
   }
 );
 
+export const deleteComment = createAsyncThunk<string, string, { rejectValue: string }>(
+  'movie/deleteComment',
+  async (commentId, thunkAPI) => {
+    try {
+      const response = await api.delete(`/comments/${commentId}`);
+      return response.data.data?.id;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to add comment.");
+    }
+  }
+);
+
 const initialState: MovieState = {
   movies: [],
   favorites: [],
@@ -160,6 +172,9 @@ export const movieSlice = createSlice({
       })
       .addCase(addComment.fulfilled, (state, action) => {
         state.comments.push(action.payload);
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        state.comments = state.comments.filter(commentItem=> commentItem._id != action.payload);
       })
       .addCase(addComment.rejected, (state, action) => {
         state.error = action.error.message || 'An error occurred while adding comment';
